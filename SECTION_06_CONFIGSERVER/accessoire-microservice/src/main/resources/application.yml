@@ -1,0 +1,36 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: accessoire
+  config:
+    import: "optional:configserver:${CONFIG_SERVICE_URL:http://localhost:9999}"
+  datasource:
+    url: 'jdbc:h2:mem:accessoiredb'
+  h2:
+    console:
+      enabled: true
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  cloud:
+    discovery:
+      enabled: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+eureka:
+  client:
+    service-url:
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://localhost:8761/eureka}
+  instance:
+    hostname: localhost
+    prefer-ip-address: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
